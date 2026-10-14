@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 const page = () => {
     const [user, setUser] = useState<boolean>(false)
     const router = useRouter();
-    console.log("checking for router properties", router)
     const login = () => {
         router.push('/dashboard')
     }
