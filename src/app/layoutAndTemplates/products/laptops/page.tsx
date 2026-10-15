@@ -1,8 +1,9 @@
 import React from 'react'
+import laptops from "./laptop.module.css"
 
 const page = () => {
     return (
-        <div>this is laptop section</div>
+        <div className={laptops.laptops}>this is laptop section</div>
     )
 }
 

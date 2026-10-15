@@ -1,8 +1,9 @@
 import React from 'react'
+import mobiles from "./mobile.module.css"
 
 const page = () => {
     return (
-        <div>
+        <div className={mobiles.mobiles}>
             <h1>this is mobile page</h1>
         </div>
     )
