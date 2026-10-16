@@ -1,6 +1,6 @@
 import { DBConnection } from "@/app/utils/config/db";
 import LaptopModal from "@/app/utils/modals/laptop";
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 export interface LaptopRequest {
     title: string;
@@ -37,4 +37,47 @@ export const POST = async (request: Request) => {
 
     }
 
+}
+
+export const PUT = async (request: NextRequest) => {
+    try {
+        const id = request.nextUrl.searchParams.get("id");
+        console.log(id)
+        if (!id) {
+            return NextResponse.json({ message: "Laptop ID is required" }, { status: 400 })
+        }
+        const body = await request.json();
+        console.log(id);
+        const { modal, price, title } = body;
+        const response = await LaptopModal.findByIdAndUpdate(id, { modal, price, title });
+        console.log(response)
+        if (!response) {
+            return NextResponse.json({ message: "laptop data not updated" }, { status: 400 })
+        }
+        return NextResponse.json({ message: "Laptop data updated successfully" }, { status: 200 })
+
+
+    } catch (error: any) {
+        console.log(error);
+        return NextResponse.json({ message: error.message }, { status: 500 })
+    }
+}
+
+
+export const DELETE = async (request: NextRequest) => {
+    try {
+        const id = request.nextUrl.searchParams.get("id");
+        if (!id) {
+            return NextResponse.json({ message: "please provide laptop ID" }, { status: 400 })
+        }
+        const response = await LaptopModal.findByIdAndDelete(id);
+        if (!response) {
+            return NextResponse.json({ message: "laptop not found" }, { status: 400 })
+        }
+        return NextResponse.json({ message: "laptop deleted successfully" }, { status: 200 })
+
+    } catch (error: any) {
+        console.log(error);
+        return NextResponse.json({ message: "laptop not deleted" }, { status: 500 })
+    }
 }
