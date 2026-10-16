@@ -1,3 +1,4 @@
+import { DBConnection } from "@/app/utils/config/db";
 import LaptopModal from "@/app/utils/modals/laptop";
 import { NextResponse } from "next/server"
 
@@ -6,6 +7,12 @@ export interface LaptopRequest {
     modal: string;
     price: number;
 }
+
+const connectDb = async () => {
+    await DBConnection()
+}
+
+connectDb();
 
 export const GET = async () => {
     try {
