@@ -3,7 +3,7 @@
 
 import React, { ChangeEvent, SubmitEvent, useState } from 'react'
 
-interface FormdataTy {
+export interface FormdataTy {
     title: string;
     modal: string;
     price: number
