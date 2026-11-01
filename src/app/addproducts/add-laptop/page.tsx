@@ -48,7 +48,7 @@ const page = () => {
                 </div>
                 <div className='flex flex-col'>
                     <label htmlFor='modal'>Laptop Name</label>
-                    <input className='outline outline-gray-400 rounded-sm p-3' placeholder='enter mddal name' onChange={handleChange} name="modal" type="text" id="modal" value={formdata.modal} />
+                    <input className='outline outline-gray-400 rounded-sm p-3' placeholder='enter modal name' onChange={handleChange} name="modal" type="text" id="modal" value={formdata.modal} />
                 </div>
                 <div className='flex flex-col'>
                     <label htmlFor='price'>Laptop Name</label>
