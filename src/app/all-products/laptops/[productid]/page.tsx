@@ -1,3 +1,5 @@
+"use client"
+
 import { FormdataTy } from '@/app/addproducts/add-laptop/page'
 import React, { ChangeEvent, SubmitEvent, useState } from 'react'
 
