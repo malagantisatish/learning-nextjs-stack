@@ -9,6 +9,7 @@ const page = () => {
 
     const [formData, setFormData] = useState({ username: "", email: "", password: "" })
     const router = useRouter()
+    const [error, setError] = useState("")
 
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -22,14 +23,26 @@ const page = () => {
 
         e.preventDefault();
         try {
+            if (!formData.email || !formData.password || !formData.username) {
+                setError("All fields are required")
+                return
+
+            }
             const response = await registerAction(formData)
-            console.log(response)
+            console.log("response", response.success)
             if (response?.status === 201) {
                 setFormData({ email: "", password: "", username: "" })
+                setError("")
                 router.push("http://localhost:3000/authentication/userCredentials/login")
+                alert("User created successfully")
+            }
+            else if (!response.success) {
+                console.log("handlesubit", response.status)
+                setError(response.message)
             }
         } catch (error: any) {
-            console.log(error)
+            console.log("error", error)
+            setError(error)
         }
 
 
@@ -40,7 +53,8 @@ const page = () => {
     return (
         <div className="w-full h-screen flex justify-center items-center">
             <form onSubmit={handleSubmit} className="border rounded-md p-8">
-                <h1>User form</h1>
+                <p className="text-center text-red-600 text-lg">{error}</p>
+                <h1 className="text-center text-lg">User form</h1>
                 <label htmlFor="username">Username</label>
                 <br />
                 <input onChange={handleChange} className="border rounded-md border-gray-500 px-2 py-3" type="text" value={formData.username} name="username" id="username" placeholder="Enter username" />

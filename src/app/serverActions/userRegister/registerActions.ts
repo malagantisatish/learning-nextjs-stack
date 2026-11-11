@@ -15,12 +15,17 @@ export interface RegisterFormTy {
 export const registerAction = async (formdata: RegisterFormTy) => {
     try {
         await DBConnection();
-        console.log(formdata)
-        if (!formdata.email || !formdata.password || !formdata.username) {
-            return NextResponse.json({ message: "Fill all the required fields" }, { status: 400 })
-
+        const exisitngUser = await UserModal.findOne({ email: formdata.email })
+        if (exisitngUser && Object.keys(exisitngUser).length > 0) {
+            console.log(exisitngUser, "existing")
+            return { message: "Email already existed", status: 401, success: false }
         }
-        const user = await UserModal.create({ ...formdata });
+
+
+
+        const hashedPassword = await bcrypt.hash(formdata.password, 10)
+
+        const user = await UserModal.create({ ...formdata, password: hashedPassword });
         console.log("user", user)
         return {
             success: true,
@@ -34,6 +39,7 @@ export const registerAction = async (formdata: RegisterFormTy) => {
 
     } catch (error: any) {
         console.log(error)
+        return { message: error, status: 500, success: false }
     }
 
 }
