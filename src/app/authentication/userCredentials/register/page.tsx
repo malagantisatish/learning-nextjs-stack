@@ -1,6 +1,7 @@
 "use client"
 
 import { registerAction } from "@/app/serverActions/userRegister/registerActions"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ChangeEvent, MouseEvent, SubmitEvent, useState } from "react"
 
@@ -70,6 +71,7 @@ const page = () => {
                 <div className="mt-4 flex items-center justify-center">
                     <button type="submit" className="px-2 py-4 bg-amber-600 rounded-md text-white">Submit</button>
                 </div>
+                <Link className="text-center" href="/authentication/userCredentials/login">Already Registered? Login</Link>
             </form>
         </div>
     )
